@@ -1,0 +1,10 @@
+# ALLOWLIST DURA: se ignora TODO y solo se re-incluye la página publicada.
+# Este repo es PÚBLICO. Con `*` ignorado, ni un `git add -A` accidental puede
+# stagear ofertas.db, .env (que tiene el webhook de Discord), logs ni código.
+*
+!.gitignore
+!.nojekyll
+!index.html
+!img/
+!img/*.png
+!img/*.jpg
