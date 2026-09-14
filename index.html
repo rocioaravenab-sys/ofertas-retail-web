@@ -34,9 +34,12 @@ h1{margin:0;font-size:1.7rem;font-weight:700;letter-spacing:-.02em}
 .envivo{
   display:inline-flex;align-items:center;gap:8px;white-space:nowrap;
   background:var(--superficie);border:1px solid var(--borde);border-radius:999px;
-  padding:6px 13px;font-size:.78rem;font-weight:600;
+  padding:6px 13px;font-size:.78rem;font-weight:600;color:var(--texto);text-decoration:none;
 }
+.envivo:hover{border-color:var(--azul)}
+.envivo:focus-visible{outline:2px solid var(--azul);outline-offset:2px}
 .envivo .punto{width:7px;height:7px;border-radius:50%;background:var(--verde);flex:none}
+.envivo svg{color:var(--suave);flex:none}
 .controles{
   position:sticky;top:0;z-index:10;padding:12px 0;
   background:color-mix(in srgb,var(--bg) 88%,transparent);
@@ -171,7 +174,10 @@ footer p{margin:3px 0}
         </svg>
         <h1>Ofertas Retail Chile</h1>
       </div>
-      <div class="envivo"><span class="punto"></span>Sincronizado con Discord</div>
+      <a class="envivo" href="https://discord.com/channels/1539056861309968546/1539057167045500958" target="_blank" rel="noopener noreferrer">
+        <span class="punto"></span>Sincronizado con Discord
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M7 7h10v10"></path></svg>
+      </a>
     </div>
     <p class="sub" id="resumen"></p>
   </header>
@@ -442,6 +448,13 @@ function crearTarjeta(o, esDestacada){
                       fmt(o.historial[o.historial.length - 1][1], o.formato);
     hist.appendChild(cap);
     cuerpo.appendChild(hist);
+  } else {
+    // Sin 2 puntos aún no hay tendencia que graficar, pero la tarjeta igual
+    // dice algo sobre su historial en vez de quedar muda en ese campo.
+    var histNuevo = document.createElement("div");
+    histNuevo.className = "hist";
+    histNuevo.textContent = "Precio visto por primera vez";
+    cuerpo.appendChild(histNuevo);
   }
   if (enlace){
     var cta = document.createElement("a");
@@ -649,7 +662,7 @@ function aplicar(reiniciarPagina){
   vacio.hidden = visibles.length > 0;
   resumen.textContent = visibles.length + " " +
     (visibles.length === 1 ? "oferta vigente" : "ofertas vigentes") +
-    " · " + Object.keys(TIENDAS).length + " tiendas · al 14 de septiembre, 16:07";
+    " · " + Object.keys(TIENDAS).length + " tiendas · al 14 de septiembre, 16:15";
   rango.textContent = visibles.length
     ? ("Mostrando " + (inicio + 1) + "–" + Math.min(inicio + POR_PAGINA, visibles.length) + " de " + visibles.length)
     : "";
