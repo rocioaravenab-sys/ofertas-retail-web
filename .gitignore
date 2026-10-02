@@ -8,3 +8,5 @@
 !img/
 !img/*.png
 !img/*.jpg
+!newsletter/
+!newsletter/**
